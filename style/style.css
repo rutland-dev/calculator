@@ -1,0 +1,80 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+#calculator-container {
+    background-color: #1A1A1D;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 600px;
+    aspect-ratio: .75;
+    border: .4rem solid black;
+    box-shadow: -.2rem .2rem .5rem 0;
+}
+
+#display-screen {
+    background-color: lightgray;
+    width: 90%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    border: .2rem solid black;
+    box-shadow: inset 0 0 1rem darkslategray;
+    margin: 8% 0;
+}
+
+#display-result {
+    font-size: 5.5rem;
+}
+
+#keypad {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: 75%;
+}
+
+#first-row, #second-row, #third-row, #fourth-row, #fifth-row {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.top-three, .number, .operator {
+    width: 25%;
+    height: 100%;
+    margin: .25%;
+}
+
+#zero {
+    width: 50%;
+    border-radius: 7%;
+}
+
+button {
+    border-radius: 10%;
+    box-shadow: -.1rem .1rem .25rem 0;
+    background-color: lightgray;
+    border: .1rem solid black;
+}
+
+button:active {
+    background: #e5e5e5;
+    -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
+       -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
+            box-shadow: inset 0px 0px 5px #c1c1c1;
+     outline: none;
+  }
+
+  #fifth-row {
+    margin-bottom: 5%;
+  }
