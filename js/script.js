@@ -1,8 +1,10 @@
+// Variables
 let total = '0';
 let operatorVar = '';
 let firstNumberVar = 0;
 let secondNumberVar = 0;
 
+// Calculations
 const add = (firstNumber, secondNumber) => {
     return parseInt(firstNumber) + parseInt(secondNumber);
 }
@@ -16,9 +18,10 @@ const multiply = (firstNumber, secondNumber) => {
 }
 
 const divide = (firstNumber, secondNumber) => {
-    return Math.round(parseInt(firstNumber) / parseInt(secondNumber)).toString();
+    return parseFloat((parseInt(firstNumber) / parseInt(secondNumber)).toFixed(6));
 }
 
+// Operate Function
 const operate = (firstNumber, secondNumber, operator) => {
     if (operator === '-') {
         total = subtract(firstNumber, secondNumber);
@@ -30,12 +33,14 @@ const operate = (firstNumber, secondNumber, operator) => {
     display.textContent = total;
 };
 
+// Display system
 const display = document.querySelector('#display-result');
 display.textContent = total;
 let displayText = parseInt(display.textContent);
 
 const checkIfZero = () => (display.textContent == 0) ? true : false;
 
+// Keypad
 const clearButton = document.querySelector('#clear');
 clearButton.addEventListener("click", clear);
 function clear() {
