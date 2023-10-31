@@ -1,4 +1,7 @@
 let total = 0;
+let operatorVar = '';
+let firstNumberVar = 0;
+let secondNumberVar = 0;
 
 const add = (firstNumber, secondNumber) => {
     return parseInt(firstNumber) + parseInt(secondNumber);
@@ -22,23 +25,36 @@ const operate = (firstNumber, secondNumber, operator) => {
     } else if (operator === '*') {
         total = multiply(firstNumber, secondNumber);
     } else if (operator === '/') {
-        total = divide(firstnumber, secondNumber);
+        total = divide(firstNumber, secondNumber);
     } else total = add(firstNumber, secondNumber);
     display.textContent = total;
 };
 
 const display = document.querySelector('#display-result');
 display.textContent = total;
+let displayText = parseInt(display.textContent);
 
-const checkIfZero = () => (display.textContent == 0) ? true : false;
+const checkIfZero = () => (displayText == 0) ? true : false;
 
-const clearKey = document.querySelector('#clear');
-clearKey.addEventListener("click", clear);
+const clearButton = document.querySelector('#clear');
+clearButton.addEventListener("click", clear);
 function clear() {
-    total += 1;
+    total = 2;
     display.textContent = total;
 };
 
-const plusMinus = document.querySelector('#plus-minus');
-plusMinus.addEventListener('click', () => operate(parseInt(display.textContent), -1, '*'));
+const plusMinusButton = document.querySelector('#plus-minus');
+plusMinusButton.addEventListener('click', () => operate(displayText, -1, '*'));
 
+const percentButton = document.querySelector('#percent');
+percentButton.addEventListener('click', () => alert('work in progress'));
+
+const divideButton = document.querySelector('#divide');
+divideButton.addEventListener('click', () => {firstNumberVar = total;
+                                            operatorVar = '/';
+                                            total = 0;
+                                            display.textContent = '0';
+                                        });
+
+const equalButton = document.querySelector('#equal');
+equalButton.addEventListener('click', () => operate(firstNumberVar, total, operatorVar));
