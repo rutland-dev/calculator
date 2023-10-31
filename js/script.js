@@ -1,4 +1,4 @@
-let total = 0;
+let total = '0';
 let operatorVar = '';
 let firstNumberVar = 0;
 let secondNumberVar = 0;
@@ -16,7 +16,7 @@ const multiply = (firstNumber, secondNumber) => {
 }
 
 const divide = (firstNumber, secondNumber) => {
-    return parseInt(firstNumber) / parseInt(secondNumber);
+    return Math.round(parseInt(firstNumber) / parseInt(secondNumber)).toString();
 }
 
 const operate = (firstNumber, secondNumber, operator) => {
@@ -34,12 +34,12 @@ const display = document.querySelector('#display-result');
 display.textContent = total;
 let displayText = parseInt(display.textContent);
 
-const checkIfZero = () => (displayText == 0) ? true : false;
+const checkIfZero = () => (display.textContent == 0) ? true : false;
 
 const clearButton = document.querySelector('#clear');
 clearButton.addEventListener("click", clear);
 function clear() {
-    total = 2;
+    total = '0';
     display.textContent = total;
 };
 
@@ -52,9 +52,14 @@ percentButton.addEventListener('click', () => alert('work in progress'));
 const divideButton = document.querySelector('#divide');
 divideButton.addEventListener('click', () => {firstNumberVar = total;
                                             operatorVar = '/';
-                                            total = 0;
+                                            total = '0';
                                             display.textContent = '0';
                                         });
 
 const equalButton = document.querySelector('#equal');
 equalButton.addEventListener('click', () => operate(firstNumberVar, total, operatorVar));
+
+const oneButton = document.querySelector('#one');
+oneButton.addEventListener('click', () => {checkIfZero() ? total = '1' : total += '1';
+                                        display.textContent = total;
+                                    });
