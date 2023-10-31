@@ -33,7 +33,9 @@ body {
 }
 
 #display-result {
+    display: flex;
     font-size: 5.5rem;
+    overflow: hidden;
 }
 
 #keypad {
@@ -50,13 +52,21 @@ body {
     justify-content: space-evenly;
 }
 
-.top-three, .number, .operator {
+.top-three, .number, .operator, #equal {
     width: 25%;
     height: 100%;
     margin: .25%;
 }
 
-#zero {
+.operator, #equal {
+    background-color: orangered;
+}
+
+.top-three {
+    background-color: lightblue;
+}
+
+.zero {
     width: 50%;
     border-radius: 7%;
 }
@@ -66,6 +76,7 @@ button {
     box-shadow: -.1rem .1rem .25rem 0;
     background-color: lightgray;
     border: .1rem solid black;
+    font-size: 2rem;
 }
 
 button:active {
@@ -79,3 +90,12 @@ button:active {
   #fifth-row {
     margin-bottom: 5%;
   }
+
+  .operator:focus {
+    background: #ffffff;
+    -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
+       -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
+            box-shadow: inset 0px 0px 5px #c1c1c1;
+     outline: none;
+  }
+

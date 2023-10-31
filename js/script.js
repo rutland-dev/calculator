@@ -1,8 +1,9 @@
 // Variables
 let total = 0;
 let operatorVar = '';
+let operatorVarSaved = '';
 let firstNumberVar = 0;
-let secondNumberVar = 0;
+let secondNumberActive = false;
 let addToNumber = false;
 
 // Calculations
@@ -23,19 +24,34 @@ const multiply = (firstNumber, secondNumber) => {
 
 const divide = (firstNumber, secondNumber) => {
     addToNumber = false;
-    return parseFloat((parseFloat(firstNumber) / parseFloat(secondNumber)).toFixed(6));
+    if (secondNumber == 0) {
+        total = 'Stupid';
+        return 'Stupid';
+    } else {
+        return parseFloat((parseFloat(firstNumber) / parseFloat(secondNumber)).toFixed(6));
+    }
 }
 
 // Operate Function
 const operate = (firstNumber, secondNumber, operator) => {
-    if (operator === '-') {
+    if (secondNumberActive === false) {
+        total = multiply(firstNumberVar, 1);
+    } else if (operator === '-') {
         total = subtract(firstNumber, secondNumber);
+        firstNumberVar = total;
     } else if (operator === '*') {
         total = multiply(firstNumber, secondNumber);
+        firstNumberVar = total;
     } else if (operator === '/') {
         total = divide(firstNumber, secondNumber);
-    } else total = add(firstNumber, secondNumber);
-    display.textContent = parseFloat(total);
+        firstNumberVar = total;
+    } else {
+        total = add(firstNumber, secondNumber);
+        firstNumberVar = total;
+    }
+    firstNumberVar = total;
+    display.textContent = total;
+    secondNumberActive = false;
 };
 
 // Display system
@@ -57,11 +73,12 @@ const plusMinusButton = document.querySelector('#plus-minus');
 plusMinusButton.addEventListener('click', () => operate(displayText, -1, '*'));
 
 const percentButton = document.querySelector('#percent');
-percentButton.addEventListener('click', () => alert('work in progress'));
+percentButton.addEventListener('click', () => total = total / 100);
 
 const divideButton = document.querySelector('#divide');
 divideButton.addEventListener('click', () => {
-    firstNumberVar = parseFloat(total); 
+    secondNumberActive = true;
+    firstNumberVar = parseFloat(total);
     operatorVar = '/'; 
     total = 0; 
     display.textContent = '0';
@@ -70,8 +87,9 @@ divideButton.addEventListener('click', () => {
 
 const multiplyButton = document.querySelector('#multiply');
 multiplyButton.addEventListener('click', () => {
-    firstNumberVar = total; 
-    operatorVar = '*'; 
+    secondNumberActive = true;
+    operatorVar = '*';
+    firstNumberVar = total;
     total = 0; 
     display.textContent = '0';
     addToNumber = false;
@@ -79,8 +97,9 @@ multiplyButton.addEventListener('click', () => {
 
 const subtractButton = document.querySelector('#subtract');
 subtractButton.addEventListener('click', () => {
-    firstNumberVar = total; 
-    operatorVar = '-'; 
+    secondNumberActive = true;
+    operatorVar = '-';
+    firstNumberVar = total;
     total = 0; 
     display.textContent = '0';
     addToNumber = false;
@@ -88,8 +107,9 @@ subtractButton.addEventListener('click', () => {
 
 const addButton = document.querySelector('#add');
 addButton.addEventListener('click', () => {
+    secondNumberActive = true;
+    operatorVar = '+';
     firstNumberVar = total; 
-    operatorVar = '+'; 
     total = 0; 
     display.textContent = '0';
     addToNumber = false;
@@ -98,89 +118,20 @@ addButton.addEventListener('click', () => {
 const equalButton = document.querySelector('#equal');
 equalButton.addEventListener('click', () => {
     operate(firstNumberVar, total, operatorVar);
-    addToNumber = false;
 });
 
 // Number Keys
 
-
-const oneButton = document.querySelector('#one');
-oneButton.addEventListener('click', () => {
-    addToNumber ? total += '1' : total = '1'; 
-    display.textContent = total;
-    addToNumber = true;
-});
-
-const twoButton = document.querySelector('#two');
-twoButton.addEventListener('click', () => {
-    addToNumber ? total += '2' : total = '2'; 
-    display.textContent = total;
-    addToNumber = true;
-});
-
-const threeButton = document.querySelector('#three');
-threeButton.addEventListener('click', () => {
-    addToNumber ? total += '3' : total = '3'; 
-    display.textContent = total;
-    addToNumber = true;
-});
-
-const fourButton = document.querySelector('#four');
-fourButton.addEventListener('click', () => {
-    addToNumber ? total += '4' : total = '4'; 
-    display.textContent = total;
-    addToNumber = true;
-});
-
-const fiveButton = document.querySelector('#five');
-fiveButton.addEventListener('click', () => {
-    addToNumber ? total += '5' : total = '5'; 
-    display.textContent = total;
-    addToNumber = true;
-});
-
-const sixButton = document.querySelector('#six');
-sixButton.addEventListener('click', () => {
-    addToNumber ? total += '6' : total = '6'; 
-    display.textContent = total;
-    addToNumber = true;
-});
-
-const sevenButton = document.querySelector('#seven');
-sevenButton.addEventListener('click', () => {
-    addToNumber ? total += '7' : total = '7'; 
-    display.textContent = total;
-    addToNumber = true;
-});
-
-const eightButton = document.querySelector('#eight');
-eightButton.addEventListener('click', () => {
-    addToNumber ? total += '8' : total = '8'; 
-    display.textContent = total;
-    addToNumber = true;
-});
-
-const nineButton = document.querySelector('#nine');
-nineButton.addEventListener('click', () => {
-    addToNumber ? total += '9' : total = '9'; 
-    display.textContent = total;
-    addToNumber = true;
-});
-
-const zeroButton = document.querySelector('#zero');
-zeroButton.addEventListener('click', () => {
-    addToNumber ? total += 0 : total = '0'; 
-    display.textContent = total;
-    if (total != 0) {
+const numberButtons = document.querySelectorAll('.number');
+numberButtons.forEach(numberButton => {
+    numberButton.addEventListener('click', () => {
+        addToNumber ? total += `${numberButton.id}` : total = `${numberButton.id}`; 
+        display.textContent = total;
+        if (secondNumberActive === false) {
+            firstNumberVar = total;
+        }
         addToNumber = true;
-    }
-});
-
-const pointButton = document.querySelector('#point');
-pointButton.addEventListener('click', () => {
-    total += '.';
-    display.textContent = total;
-    addToNumber = true;
+    });
 });
 
 // Number logic
